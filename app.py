@@ -13,6 +13,7 @@ from backend.history.cosmosdbservice import CosmosConversationClient
 load_dotenv()
 
 app = Flask(__name__, static_folder="static")
+app.config['DEBUG'] = True
 
 # Static Files
 @app.route("/")
@@ -387,9 +388,11 @@ def stream_without_data(response, history_metadata={}):
 
 def conversation_without_data(request_body):
     openai.api_type = "azure"
-    openai.api_base = AZURE_OPENAI_ENDPOINT if AZURE_OPENAI_ENDPOINT else f"https://{AZURE_OPENAI_RESOURCE}.openai.azure.com/"
+    # openai.api_base = AZURE_OPENAI_ENDPOINT if AZURE_OPENAI_ENDPOINT else f"https://{AZURE_OPENAI_RESOURCE}.openai.azure.com/"
+    openai.api_base = "https://test-aichat-openai-eus.openai.azure.com/"
     openai.api_version = "2023-08-01-preview"
-    openai.api_key = AZURE_OPENAI_KEY
+    # openai.api_key = AZURE_OPENAI_KEY
+    openai.api_key = "ea653bfb598c439ab9a4d557704b92f8"
 
     request_messages = request_body["messages"]
     messages = [
@@ -400,13 +403,16 @@ def conversation_without_data(request_body):
     ]
 
     for message in request_messages:
-        messages.append({
-            "role": message["role"] ,
-            "content": message["content"]
-        })
+        # checking if 'content' key exists
+        if 'content' in message:
+            messages.append({
+                # Getting 'role' from message, default to 'user' if not present
+                "role": message.get("role", "user") ,
+                "content": message["content"]
+            })
 
     response = openai.ChatCompletion.create(
-        engine=AZURE_OPENAI_MODEL,
+        engine="test-aichat-model",
         messages = messages,
         temperature=float(AZURE_OPENAI_TEMPERATURE),
         max_tokens=int(AZURE_OPENAI_MAX_TOKENS),
@@ -439,6 +445,7 @@ def conversation_without_data(request_body):
 
 @app.route("/conversation", methods=["GET", "POST"])
 def conversation():
+    print("EFVEWEVEVEEV")
     request_body = request.json
     return conversation_internal(request_body)
 

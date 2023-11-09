@@ -1,8 +1,9 @@
 import { UserInfo, ConversationRequest, Conversation, ChatMessage, CosmosDBHealth, CosmosDBStatus } from "./models";
 import { chatHistorySampleData } from "../constants/chatHistory";
 
+const BASE_URL = 'http://127.0.0.1:5000';
 export async function conversationApi(options: ConversationRequest, abortSignal: AbortSignal): Promise<Response> {
-    const response = await fetch("/conversation", {
+    const response = await fetch("${BASE_URL}/conversation", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
