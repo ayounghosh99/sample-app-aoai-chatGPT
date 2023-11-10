@@ -5,6 +5,7 @@ import requests
 import openai
 from azure.identity import DefaultAzureCredential
 from flask import Flask, Response, request, jsonify, send_from_directory
+from flask_cors import CORS
 from dotenv import load_dotenv
 
 from backend.auth.auth_utils import get_authenticated_user_details
@@ -14,6 +15,13 @@ load_dotenv()
 
 app = Flask(__name__, static_folder="static")
 app.config['DEBUG'] = True
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response
 
 # Static Files
 @app.route("/")
@@ -27,6 +35,7 @@ def favicon():
 @app.route("/assets/<path:path>")
 def assets(path):
     return send_from_directory("static/assets", path)
+
 
 
 # ACS Integration Settings
