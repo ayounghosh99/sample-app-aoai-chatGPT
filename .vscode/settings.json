@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/3ca6241c-165d-440c-9a12-cd44b84cd7d6/resourceGroups/OpenAiTest01/providers/Microsoft.Web/sites/test-aichat-wn-eus",
+    "appService.deploySubpath": "."
+}
