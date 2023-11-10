@@ -3,7 +3,7 @@ import { chatHistorySampleData } from "../constants/chatHistory";
 
 const BASE_URL = 'http://127.0.0.1:5000';
 export async function conversationApi(options: ConversationRequest, abortSignal: AbortSignal): Promise<Response> {
-    const response = await fetch("http://127.0.0.1:5000/conversation", {
+    const response = await fetch("https://test-aichat-wa-eus-001.azurewebsites.net/conversation", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
