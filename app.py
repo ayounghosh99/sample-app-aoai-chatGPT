@@ -76,10 +76,10 @@ AZURE_OPENAI_EMBEDDING_NAME = os.environ.get("AZURE_OPENAI_EMBEDDING_NAME", "")
 SHOULD_STREAM = True if AZURE_OPENAI_STREAM.lower() == "true" else False
 
 # CosmosDB Integration Settings
-AZURE_COSMOSDB_DATABASE = os.environ.get("AZURE_COSMOSDB_DATABASE")
-AZURE_COSMOSDB_ACCOUNT = os.environ.get("AZURE_COSMOSDB_ACCOUNT")
-AZURE_COSMOSDB_CONVERSATIONS_CONTAINER = os.environ.get("AZURE_COSMOSDB_CONVERSATIONS_CONTAINER")
-AZURE_COSMOSDB_ACCOUNT_KEY = os.environ.get("AZURE_COSMOSDB_ACCOUNT_KEY")
+AZURE_COSMOSDB_DATABASE = os.environ.get("AZURE_COSMOSDB_DATABASE") or "db_conversation_history"
+AZURE_COSMOSDB_ACCOUNT = os.environ.get("AZURE_COSMOSDB_ACCOUNT") or "test-db-aichat-cus"
+AZURE_COSMOSDB_CONVERSATIONS_CONTAINER = os.environ.get("AZURE_COSMOSDB_CONVERSATIONS_CONTAINER") or "conversations"
+AZURE_COSMOSDB_ACCOUNT_KEY = os.environ.get("AZURE_COSMOSDB_ACCOUNT_KEY") or "LJNxfALcC1RRxwJFm69ru54btt47SiCcxB4taU0cOR3ShbLvJZfZCw20HLraulNSdRseNcauz347ACDb80ppyw=="
 
 # Initialize a CosmosDB client with AAD auth and containers
 cosmos_conversation_client = None
